@@ -1,65 +1,84 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { css, createGlobalStyle } from "styled-components";
 
-export const Movies = styled.div`
-  margin-top: 80px;
-  max-width: 700px;
+interface Device {
+  isMobile: boolean;
+}
+
+export const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    font-size: 35px;
+    color: #a8a8b3;
+    max-width: 450px;
+  }
 
   a {
-    background: #a8a8b3;
-    border-radius: 5px;
-    width: 100%;
-    padding: 12px;
-    display: block;
-    text-decoration: none;
-
     display: flex;
     align-items: center;
-    transition: transform 0.2s;
-
-    & + a {
-      margin-top: 16px;
-    }
+    text-decoration: none;
+    color: #a8a8b3;
+    font-size: 17px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+    margin-top: 5px;
 
     &:hover {
-      transform: translateX(10px);
+      opacity: 0.9;
     }
 
-    img {
-      width: 50px;
-      height: 70px;
-      border-radius: 2px;
-    }
-
-    div {
-      margin: 0 16px;
-      flex: 1;
-
-      strong {
-        font-size: 20px;
-        color: #3d3d4d;
-      }
-
-      p {
-        font-size: 18px;
-        color: #a8a8b3;
-        margin-top: 4px;
-      }
+    &:active {
+      opacity: 0.8;
     }
 
     svg {
-      margin-left: auto;
-      color: #cbcbd6;
+      margin-right: 4px;
     }
   }
 `;
 
-export const Title = styled.h1`
-  font-size: 48px;
-  color: #a8a8b3;
-  max-width: 450px;
-  line-height: 56px;
+export const Movies = styled.div<Device>`
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 800px;
 
-  margin-top: 80px;
+  ${(device) =>
+    device.isMobile &&
+    css`
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+    `}
+
+  div {
+    position: relative;
+    margin: 10px 10px 0px 0px;
+    transition: opacity 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+
+    img {
+      width: 150px;
+      height: 200px;
+      border-radius: 5px;
+    }
+  }
+`;
+
+export const PaginationContainer = styled.div`
+  max-width: 790px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
 `;
 
 export default createGlobalStyle`
@@ -89,6 +108,6 @@ export default createGlobalStyle`
   #root {
     max-width: 960px;
     margin: 0 auto;
-    padding: 40px 20px
+    padding: 15px 15px
   }
 `;
