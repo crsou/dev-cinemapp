@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ChangeEvent } from "react";
 import { BsHeartFill, BsSearch, BsX } from "react-icons/bs";
 import { FiChevronLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -34,6 +34,8 @@ const theme = createMuiTheme({
 });
 
 const Favorites: React.FC = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [pageTotal, setPageTotal] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<Movie>({
     Title: "",
@@ -43,66 +45,150 @@ const Favorites: React.FC = () => {
   const [removeDialogOpen, setRemoveDialogOpen] = useState(false);
   const [removeMovieData, setRemoveMovieData] = useState<Movie>();
 
-  const movies = [
+  useEffect(() => {
+    setMovies(paginate(moviesList, 1));
+    setPageTotal(Math.ceil(moviesList.length / 10));
+  }, []);
+
+  function paginate(array: Movie[], index: number) {
+    index = index > 0 ? index - 1 : index;
+    return [
+      ...array.filter((value, n) => {
+        return n >= index * 10 && n < (index + 1) * 10;
+      }),
+    ];
+  }
+
+  function filterFavorites(title: string) {
+    return movies.filter(
+      (item) => item.Title.toLowerCase().indexOf(title.toLowerCase()) > -1
+    );
+  }
+
+  const changePage = (event: ChangeEvent<unknown>, page: number) => {
+    setMovies(paginate(moviesList, page));
+  };
+
+  const moviesList = [
     {
-      Title: "Pirates of the Caribbean: The Curse of the Black Pearl",
-      imdbID: "tt0325980",
+      Title: "Harry Potter and the Deathly Hallows: Part 2",
+      Year: "2011",
+      imdbID: "tt1201607",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMGVmMWNiMDktYjQ0Mi00MWIxLTk0N2UtN2ZlYTdkN2IzNDNlXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Man's Chest",
-      imdbID: "tt0383574",
+      Title: "Harry Potter and the Sorcerer's Stone",
+      Year: "2001",
+      imdbID: "tt0241527",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTcwODc1MTMxM15BMl5BanBnXkFtZTYwMDg1NzY3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNjQ3NWNlNmQtMTE5ZS00MDdmLTlkZjUtZTBlM2UxMGFiMTU3XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: At World's End",
-      imdbID: "tt0449088",
+      Title: "Harry Potter and the Chamber of Secrets",
+      Year: "2002",
+      imdbID: "tt0295297",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjIyNjkxNzEyMl5BMl5BanBnXkFtZTYwMjc3MDE3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTcxODgwMDkxNV5BMl5BanBnXkFtZTYwMDk2MDg3._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: On Stranger Tides",
-      imdbID: "tt1298650",
+      Title: "Harry Potter and the Prisoner of Azkaban",
+      Year: "2004",
+      imdbID: "tt0304141",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE5MjkwODI3Nl5BMl5BanBnXkFtZTcwNjcwMDk4NA@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTY4NTIwODg0N15BMl5BanBnXkFtZTcwOTc0MjEzMw@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Men Tell No Tales",
-      imdbID: "tt1790809",
+      Title: "Harry Potter and the Goblet of Fire",
+      Year: "2005",
+      imdbID: "tt0330373",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTI1NDMyMjExOF5BMl5BanBnXkFtZTcwOTc4MjQzMQ@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: The Curse of the Black Pearl",
-      imdbID: "tt0325980",
+      Title: "Harry Potter and the Order of the Phoenix",
+      Year: "2007",
+      imdbID: "tt0373889",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTM0NTczMTUzOV5BMl5BanBnXkFtZTYwMzIxNTg3._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Man's Chest",
-      imdbID: "tt0383574",
+      Title: "Harry Potter and the Deathly Hallows: Part 1",
+      Year: "2010",
+      imdbID: "tt0926084",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTcwODc1MTMxM15BMl5BanBnXkFtZTYwMDg1NzY3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: At World's End",
-      imdbID: "tt0449088",
+      Title: "Harry Potter and the Half-Blood Prince",
+      Year: "2009",
+      imdbID: "tt0417741",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjIyNjkxNzEyMl5BMl5BanBnXkFtZTYwMjc3MDE3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNzU3NDg4NTAyNV5BMl5BanBnXkFtZTcwOTg2ODg1Mg@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: On Stranger Tides",
-      imdbID: "tt1298650",
+      Title: "When Harry Met Sally...",
+      Year: "1989",
+      imdbID: "tt0098635",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE5MjkwODI3Nl5BMl5BanBnXkFtZTcwNjcwMDk4NA@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Men Tell No Tales",
-      imdbID: "tt1790809",
+      Title: "Dirty Harry",
+      Year: "1971",
+      imdbID: "tt0066999",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMzdhMTM2YTItOWU2YS00MTM0LTgyNDYtMDM1OWM3NzkzNTM2XkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Lord of the Rings: The Fellowship of the Ring",
+      Year: "2001",
+      imdbID: "tt0120737",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Lord of the Rings: The Return of the King",
+      Year: "2003",
+      imdbID: "tt0167260",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Lord of the Rings: The Two Towers",
+      Year: "2002",
+      imdbID: "tt0167261",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
+    },
+    {
+      Title: "Rings",
+      Year: "2017",
+      imdbID: "tt0498381",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BYTQzZjhiYjYtNDMzOS00ZjNiLTg2MGMtYWZmYWNjN2U5YTVmXkEyXkFqcGdeQXVyNjI3OTcxOTU@._V1_SX300.jpg",
+    },
+    {
+      Title: "The Lord of the Rings",
+      Year: "1978",
+      imdbID: "tt0077869",
+      Type: "movie",
+      Poster:
+        "https://m.media-amazon.com/images/M/MV5BOGMyNWJhZmYtNGQxYi00Y2ZjLWJmNjktNTgzZWJjOTg4YjM3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
     },
   ];
 
@@ -220,9 +306,10 @@ const Favorites: React.FC = () => {
       </Dialog>
       <PaginationContainer>
         <Pagination
-          count={100}
+          count={pageTotal}
           color="primary"
           size={isMobile ? "small" : "medium"}
+          onChange={changePage}
           showFirstButton
           showLastButton
         />

@@ -21,7 +21,9 @@ import { BrowserView, MobileView, isMobile } from "react-device-detect";
 
 interface Movie {
   Title: string;
+  Year: string;
   imdbID: string;
+  Type: string;
   Poster: string;
 }
 
@@ -43,7 +45,9 @@ const Search: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<Movie>({
     Title: "",
+    Year: "",
     imdbID: "",
+    Type: "",
     Poster: "",
   });
 
@@ -54,64 +58,84 @@ const Search: React.FC = () => {
 
   const movies = [
     {
-      Title: "Pirates of the Caribbean: The Curse of the Black Pearl",
-      imdbID: "tt0325980",
+      Title: "The Lord of the Rings: The Fellowship of the Ring",
+      Year: "2001",
+      imdbID: "tt0120737",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Man's Chest",
-      imdbID: "tt0383574",
+      Title: "The Lord of the Rings: The Return of the King",
+      Year: "2003",
+      imdbID: "tt0167260",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTcwODc1MTMxM15BMl5BanBnXkFtZTYwMDg1NzY3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: At World's End",
-      imdbID: "tt0449088",
+      Title: "The Lord of the Rings: The Two Towers",
+      Year: "2002",
+      imdbID: "tt0167261",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjIyNjkxNzEyMl5BMl5BanBnXkFtZTYwMjc3MDE3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BZGMxZTdjZmYtMmE2Ni00ZTdkLWI5NTgtNjlmMjBiNzU2MmI5XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: On Stranger Tides",
-      imdbID: "tt1298650",
+      Title: "Rings",
+      Year: "2017",
+      imdbID: "tt0498381",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE5MjkwODI3Nl5BMl5BanBnXkFtZTcwNjcwMDk4NA@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BYTQzZjhiYjYtNDMzOS00ZjNiLTg2MGMtYWZmYWNjN2U5YTVmXkEyXkFqcGdeQXVyNjI3OTcxOTU@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Men Tell No Tales",
-      imdbID: "tt1790809",
+      Title: "The Lord of the Rings",
+      Year: "1978",
+      imdbID: "tt0077869",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BOGMyNWJhZmYtNGQxYi00Y2ZjLWJmNjktNTgzZWJjOTg4YjM3L2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: The Curse of the Black Pearl",
-      imdbID: "tt0325980",
+      Title: "The Postman Always Rings Twice",
+      Year: "1981",
+      imdbID: "tt0082934",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BNGYyZGM5MGMtYTY2Ni00M2Y1LWIzNjQtYWUzM2VlNGVhMDNhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BZGE2OWVhYzgtMTRmYS00NjI0LTg3MGItZDlkN2Q3ZTQ5MzgxXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Man's Chest",
-      imdbID: "tt0383574",
+      Title: "The Postman Always Rings Twice",
+      Year: "1946",
+      imdbID: "tt0038854",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTcwODc1MTMxM15BMl5BanBnXkFtZTYwMDg1NzY3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BNTUzODE2Mzg3NF5BMl5BanBnXkFtZTgwNTE1MDkxMTE@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: At World's End",
-      imdbID: "tt0449088",
+      Title: "The Lord of the Rings: The Two Towers",
+      Year: "2002",
+      imdbID: "tt0347436",
+      Type: "game",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjIyNjkxNzEyMl5BMl5BanBnXkFtZTYwMjc3MDE3._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BODI0Mzk3OTM4N15BMl5BanBnXkFtZTgwMTM4MTk4MDE@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: On Stranger Tides",
-      imdbID: "tt1298650",
+      Title: "Rings",
+      Year: "2005",
+      imdbID: "tt0449092",
+      Type: "movie",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMjE5MjkwODI3Nl5BMl5BanBnXkFtZTcwNjcwMDk4NA@@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BYjViNTY5ZTAtNjgzNS00M2JkLThmMTYtMTQxZjc5MWMyZDk0L2ltYWdlXkEyXkFqcGdeQXVyMzM4MjM0Nzg@._V1_SX300.jpg",
     },
     {
-      Title: "Pirates of the Caribbean: Dead Men Tell No Tales",
-      imdbID: "tt1790809",
+      Title: "The Lord of the Rings: The Return of the King",
+      Year: "2003",
+      imdbID: "tt0387360",
+      Type: "game",
       Poster:
-        "https://m.media-amazon.com/images/M/MV5BMTYyMTcxNzc5M15BMl5BanBnXkFtZTgwOTg2ODE2MTI@._V1_SX300.jpg",
+        "https://m.media-amazon.com/images/M/MV5BMjE5NTQwMTY5MV5BMl5BanBnXkFtZTgwODcwNjUwMTE@._V1_SX300.jpg",
     },
   ];
 
@@ -132,72 +156,81 @@ const Search: React.FC = () => {
       </Searchbar>
       <BrowserView>
         <Movies isMobile={isMobile}>
-          {movies.map((movie) => (
-            <div>
-              <img
-                onClick={() => openMovieModal(movie)}
-                src={movie.Poster}
-                alt={movie.imdbID}
-              />
-              <Checkbox
-                style={{
-                  position: "absolute",
-                  zIndex: 2,
-                  bottom: 0,
-                  right: 0,
-                }}
-                color="primary"
-                checkedIcon={<BsHeartFill color="#b71a51" />}
-                icon={<BsHeart color="#fff" />}
-              />
-            </div>
-          ))}
+          {movies.map(
+            (movie) =>
+              movie.Type === "movie" && (
+                <div>
+                  <img
+                    onClick={() => openMovieModal(movie)}
+                    src={movie.Poster}
+                    alt={movie.imdbID}
+                  />
+                  <Checkbox
+                    style={{
+                      position: "absolute",
+                      zIndex: 2,
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    color="primary"
+                    checkedIcon={<BsHeartFill color="#b71a51" />}
+                    icon={<BsHeart color="#fff" />}
+                  />
+                </div>
+              )
+          )}
         </Movies>
       </BrowserView>
       <MobileView>
         <Movies isMobile={isMobile}>
-          {movies.slice(0, 5).map((movie) => (
-            <div>
-              <img
-                onClick={() => openMovieModal(movie)}
-                src={movie.Poster}
-                alt={movie.imdbID}
-              />
-              <Checkbox
-                style={{
-                  position: "absolute",
-                  zIndex: 2,
-                  bottom: 0,
-                  right: 0,
-                }}
-                color="primary"
-                checkedIcon={<BsHeartFill color="#b71a51" />}
-                icon={<BsHeart color="#fff" />}
-              />
-            </div>
-          ))}
+          {movies.slice(0, 5).map(
+            (movie) =>
+              movie.Type === "movie" && (
+                <div>
+                  <img
+                    onClick={() => openMovieModal(movie)}
+                    src={movie.Poster}
+                    alt={movie.imdbID}
+                  />
+                  <Checkbox
+                    style={{
+                      position: "absolute",
+                      zIndex: 2,
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    color="primary"
+                    checkedIcon={<BsHeartFill color="#b71a51" />}
+                    icon={<BsHeart color="#fff" />}
+                  />
+                </div>
+              )
+          )}
         </Movies>
         <Movies isMobile={isMobile}>
-          {movies.slice(5, 10).map((movie) => (
-            <div>
-              <img
-                onClick={() => openMovieModal(movie)}
-                src={movie.Poster}
-                alt={movie.imdbID}
-              />
-              <Checkbox
-                style={{
-                  position: "absolute",
-                  zIndex: 2,
-                  bottom: 0,
-                  right: 0,
-                }}
-                color="primary"
-                checkedIcon={<BsHeartFill color="#b71a51" />}
-                icon={<BsHeart color="#fff" />}
-              />
-            </div>
-          ))}
+          {movies.slice(5, 10).map(
+            (movie) =>
+              movie.Type === "movie" && (
+                <div>
+                  <img
+                    onClick={() => openMovieModal(movie)}
+                    src={movie.Poster}
+                    alt={movie.imdbID}
+                  />
+                  <Checkbox
+                    style={{
+                      position: "absolute",
+                      zIndex: 2,
+                      bottom: 0,
+                      right: 0,
+                    }}
+                    color="primary"
+                    checkedIcon={<BsHeartFill color="#b71a51" />}
+                    icon={<BsHeart color="#fff" />}
+                  />
+                </div>
+              )
+          )}
         </Movies>
 
         {/* {Array.from(new Array(5)).map(() => (
