@@ -26,15 +26,58 @@ export const Header = styled.header`
     margin-top: 5px;
 
     &:hover {
-      opacity: 0.9;
+      opacity: 0.8;
     }
 
     &:active {
-      opacity: 0.8;
+      opacity: 0.6;
     }
 
     svg {
       margin-right: 4px;
+    }
+  }
+`;
+
+export const Searchbar = styled.form`
+  margin-top: 5vh;
+  max-width: 700px;
+
+  display: flex;
+
+  input {
+    flex: 1;
+    height: 50px;
+    max-width: 400px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    color: #fff;
+    background: #353740;
+
+    &::placeholder {
+      color: #a8a8b3;
+    }
+  }
+
+  button {
+    width: 50px;
+    height: 50px;
+    background: #b71a51;
+    border-radius: 0px 5px 5px 0px;
+    border: 0;
+    transition: opacity 0.2s;
+
+    svg {
+      margin-top: 4px;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
     }
   }
 `;
@@ -54,21 +97,21 @@ export const Movies = styled.div<Device>`
   div {
     position: relative;
     margin: 10px 10px 0px 0px;
-    transition: opacity 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &:active {
-      opacity: 0.6;
-    }
 
     img {
+      cursor: pointer;
       width: 150px;
       height: 200px;
       border-radius: 5px;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 0.6;
+      }
     }
   }
 `;
