@@ -82,6 +82,13 @@ export const Searchbar = styled.form`
   }
 `;
 
+export const ErrorMessage = styled.h1`
+  margin-top: 5vh;
+  font-size: 20px;
+  color: #a8a8b3;
+  max-width: 300px;
+`;
+
 export const Movies = styled.div<Device>`
   display: flex;
   flex-wrap: wrap;
