@@ -1,6 +1,6 @@
 # Cinema App
 
-Este projeto foi criado como desafio para a Shtima.
+Este projeto foi criado como desafio para a Sthima.
 
 Comece clonando o projeto:
     
