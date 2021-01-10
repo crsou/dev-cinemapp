@@ -14,7 +14,6 @@ Isso irá abrir o app em seu navegador. Para visualizar em seu celular basta abr
     
 Exemplo: 192.168.100.32:3000
 
-#
 ## Como utilizar
 
 Este app permite que você busque e encontre filmes através da API do OMDb. Basta digitar sua busca (em inglês) na barra de pesquisa e o app irá retornar filmes relacionados. Porém, se a busca for muito ampla a API retornará o erro "Too many results." (resultados demais).
@@ -23,7 +22,6 @@ Ao clicar em um filme você verá o Poster ampliado, o título e o ano em que fo
 
 Na página de favoritos você terá as mesmas ações de busca e visualização de detalhes de filmes, e também poderá removê-los da lista.
 
-#
 ## Observações
 
 O app foi desenvolvido a partir da suposição de que não haveria um back-end (além da API do OMDb), portanto os favoritos são salvos utilizando a localStorage. Dessa forma, os dados não estão ligados à nenhum usuário e não irão ser mantidos entre navegadores e dispositivos diferentes.
