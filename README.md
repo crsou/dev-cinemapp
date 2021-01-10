@@ -25,3 +25,5 @@ Na página de favoritos você terá as mesmas ações de busca e visualização 
 ## Observações
 
 O app foi desenvolvido a partir da suposição de que não haveria um back-end (além da API do OMDb), portanto os favoritos são salvos utilizando a localStorage. Dessa forma, os dados não estão ligados à nenhum usuário e não irão ser mantidos entre navegadores e dispositivos diferentes.
+
+O layout do app é responsivo, utilizando o pacote react-device-detect. Caso você esteja utilizando no navegador do seu computador e queira emular a tela de um celular, recarregue a página para que o layout seja atualizado.
