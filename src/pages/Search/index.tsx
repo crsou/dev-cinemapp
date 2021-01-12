@@ -155,7 +155,7 @@ const Search: React.FC = () => {
               {movies.map(
                 (movie) =>
                   movie.Type === "movie" &&
-                  movie.Poster != "N/A" && (
+                  movie.Poster !== "N/A" && (
                     <div key={movie.imdbID}>
                       <img
                         onClick={() => openMovieModal(movie)}
@@ -179,7 +179,7 @@ const Search: React.FC = () => {
               {movies.slice(0, 5).map(
                 (movie) =>
                   movie.Type === "movie" &&
-                  movie.Poster != "N/A" && (
+                  movie.Poster !== "N/A" && (
                     <div key={movie.imdbID}>
                       <img
                         onClick={() => openMovieModal(movie)}
@@ -201,7 +201,7 @@ const Search: React.FC = () => {
               {movies.slice(5, 10).map(
                 (movie) =>
                   movie.Type === "movie" &&
-                  movie.Poster != "N/A" && (
+                  movie.Poster !== "N/A" && (
                     <div key={movie.imdbID}>
                       <img
                         onClick={() => openMovieModal(movie)}

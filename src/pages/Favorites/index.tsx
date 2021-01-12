@@ -24,7 +24,6 @@ import {
   PaginationContainer,
   Searchbar,
 } from "../../styles/global";
-import { error } from "console";
 
 interface Movie {
   Title: string;
@@ -78,7 +77,7 @@ const Favorites: React.FC = () => {
     if (savedFavorites && savedFavorites.length > 0) {
       setError("");
       setFavorites(JSON.parse(savedFavorites));
-      loadPage(JSON.parse(savedFavorites), 1);
+      loadPage(JSON.parse(savedFavorites), 1); // eslint-disable-line react-hooks/exhaustive-deps
     } else {
       setError("Você ainda não adicionou nenhum favorito...");
     }
