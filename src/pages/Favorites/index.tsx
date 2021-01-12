@@ -75,24 +75,21 @@ const Favorites: React.FC = () => {
   useEffect(() => {
     let savedFavorites = localStorage.getItem("@favorites");
     if (savedFavorites && savedFavorites.length > 0) {
+      let favoritesList = JSON.parse(savedFavorites);
       setError("");
-      setFavorites(JSON.parse(savedFavorites));
-      loadPage(JSON.parse(savedFavorites), 1); // eslint-disable-line react-hooks/exhaustive-deps
+      setFavorites(favoritesList);
+      setCurrentPage(1);
+      setMovies(paginate(favoritesList, 1));
+      if (favoritesList.length === 0) {
+        setError("Filme não encontrado.");
+      } else {
+        setError("");
+      }
+      setPageTotal(Math.ceil(favoritesList.length / 10));
     } else {
       setError("Você ainda não adicionou nenhum favorito...");
     }
   }, []);
-
-  function loadPage(list: Movie[], page: number) {
-    setCurrentPage(page);
-    setMovies(paginate(list, 1));
-    if (list.length === 0) {
-      setError("Filme não encontrado.");
-    } else {
-      setError("");
-    }
-    setPageTotal(Math.ceil(list.length / 10));
-  }
 
   function paginate(array: Movie[], index: number) {
     index = index > 0 ? index - 1 : index;
@@ -105,7 +102,15 @@ const Favorites: React.FC = () => {
 
   function handleFilterSearch(event: FormEvent) {
     event.preventDefault();
-    loadPage(filterFavorites(searchInput), 1);
+    let filteredFavorites = filterFavorites(searchInput);
+    setCurrentPage(1);
+    setMovies(paginate(filteredFavorites, 1));
+    if (filteredFavorites.length === 0) {
+      setError("Filme não encontrado.");
+    } else {
+      setError("");
+    }
+    setPageTotal(Math.ceil(filteredFavorites.length / 10));
   }
 
   function filterFavorites(title: string) {
@@ -184,7 +189,7 @@ const Favorites: React.FC = () => {
           <BrowserView>
             <Movies isMobile={isMobile}>
               {movies.map((movie) => (
-                <div>
+                <div key={movie.imdbID}>
                   <img
                     onClick={() => openMovieModal(movie)}
                     src={movie.Poster}
@@ -202,7 +207,7 @@ const Favorites: React.FC = () => {
           <MobileView>
             <Movies isMobile={isMobile}>
               {movies.slice(0, 5).map((movie) => (
-                <div>
+                <div key={movie.imdbID}>
                   <img
                     onClick={() => openMovieModal(movie)}
                     src={movie.Poster}
@@ -218,7 +223,7 @@ const Favorites: React.FC = () => {
             </Movies>
             <Movies isMobile={isMobile}>
               {movies.slice(5, 10).map((movie) => (
-                <div>
+                <div key={movie.imdbID}>
                   <img
                     onClick={() => openMovieModal(movie)}
                     src={movie.Poster}
