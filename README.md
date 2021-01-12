@@ -14,6 +14,8 @@ Isso irá abrir o app em seu navegador. Para visualizar em seu celular basta abr
     
 Exemplo: 192.168.100.32:3000
 
+Também foi feito o deploy do app utilizando o Netlify. Ele pode ser acessado neste link: https://focused-keller-2c15c4.netlify.app/
+
 ## Como utilizar
 
 Este app permite que você busque e encontre filmes através da API do OMDb. Basta digitar sua busca (em inglês) na barra de pesquisa e o app irá retornar filmes relacionados. Porém, se a busca for muito ampla a API retornará o erro "Too many results." (resultados demais).
