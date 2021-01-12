@@ -68,7 +68,7 @@ const Search: React.FC = () => {
 
   async function loadNewPage(page: number, title: string) {
     try {
-      const { data } = await api.get(`${title}&page=${page}`);
+      const { data } = await api.get(`&s=${title}&page=${page}`);
       if (data.Response === "True") {
         setError("");
         let auxList: Movie[][] = [];
